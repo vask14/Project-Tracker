@@ -1,0 +1,7 @@
+<div *ngFor='let task of tasks' style="display: flex; flex-direction: row">
+    {{task.Name}}
+    <app-task-row [total]="total" [projectId]="projectId" [changeDetect]="changeDetect" [taskId]="task.Id" [dateInterval]="dateInterval" style="display:flex; flex-direction:row; margin-left: 8%"></app-task-row>
+</div>
+<div *ngFor="let el of total">
+    {{el.LoggedTime}}
+</div>

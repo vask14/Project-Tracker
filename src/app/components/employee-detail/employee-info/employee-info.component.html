@@ -1,0 +1,33 @@
+<div class="container" *ngIf="employee">
+   <div class="row">
+      <div class="col-md-2">
+         <img src="assets/images/user.png" ast="employee" />
+      </div>
+      <div class="col-md-7 offset-md-3 info">
+         <div>
+            <strong>Birthday: </strong>
+            {{employee.Birthday  | date: 'longDate'}}
+         </div>
+         <div>
+            <strong>Email: </strong> {{ employee.Email }}
+         </div>
+         <div *ngIf="employee.Location?.Name">
+            <strong>Location: </strong>
+            {{employee.Location.Name}}
+         </div>
+         <div>
+            <strong>Address: </strong>
+            {{employee.Address}}
+         </div>
+         <div>
+            <strong>Skype: </strong>
+            {{ employee.Skype }}
+         </div>
+                 
+         <div>
+            <strong>Phone: </strong>
+            {{ employee.Phone }}
+         </div>
+      </div>
+   </div>
+</div>

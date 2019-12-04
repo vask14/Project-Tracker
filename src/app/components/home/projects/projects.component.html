@@ -1,0 +1,18 @@
+<div class="col-md-1">
+    <button (click)="prevDay()" class="navigation">
+      <span class="fa fa-arrow-left">-</span>
+    </button>
+</div>
+<div style="display: flex; flex-direction: row">
+    <div *ngFor="let day of dateInterval" style="margin-left: 200px">{{day.Date}}</div>
+</div>
+<div class="col-md-1">
+    <button (click)="nextDay()" class="navigation">
+      <span class="fa fa-arrow-right">+</span>
+    </button>
+</div>
+<div *ngFor="let project of projects">
+    <p>{{project.Name}}</p>
+    <app-tasks [total]="total" [changeDetect]="changeDetect" [projectId]="project.Id" [dateInterval]="dateInterval" style="display: flex; flex-direction: column">
+    </app-tasks>
+</div>

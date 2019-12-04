@@ -1,0 +1,54 @@
+<div class="team-container row">
+    <div class="col-md-12 head row">
+        <div class="col-md-2">
+            <h2>Team</h2>
+        </div>
+        <div class="col-md-2 offset-md-8" *ngIf="teamMembers?.length">
+            <div class="col-md-8">
+                <app-add-to-team *ngIf="addUser" [isEmpty]="isEmpty.bind(this)" [filters]="teamMembers" [chooseUser]="chooseUser.bind(this)"></app-add-to-team>
+            </div>
+            <div class="col-md-2">
+                <button *ngIf="addUser" type="button" (click)="cancelAddUser()" class="btn btn-danger">Close</button>
+            </div>
+            <div class="col-md-2">
+                 <button (click)="toggleAddUser()" [disabled]="disableButton" type="button" class="btn btn-primary">Add to team</button>
+            </div>
+        </div>
+    </div>
+
+    <table class="employees-container table">
+        <tr>
+            <th class="thead1"><span class="text-primary">Name</span></th>
+            <th class="thead2"><span class="text-primary">Position</span></th>
+            <th class="thead3"><span class="text-primary">Email</span></th>
+            <th class="thead4"><span class="text-primary">Skype</span></th>
+            <th class="thead5"></th>
+            <th></th>
+        </tr>
+        <tr class="employee-row" *ngFor="let teamMember of teamMembers">
+                <td>
+                    <a routerLink="/employee/{{teamMember.Id}}">{{ teamMember.FullName }}</a>
+                </td>
+                <td>
+                    <span>
+                        {{ teamMember.Position.Name }}
+                    </span>
+                </td>
+                <td>
+                    <span>
+                        {{ teamMember.Email }}
+                    </span>
+                </td>
+                <td>
+                    <span>
+                        {{ teamMember.Skype }}
+                    </span>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-default button" (click)="deleteUser(teamMember.Id)">
+                        <span class="fa fa-remove"></span>
+                    </button>
+                </td>
+            </tr>
+    </table>
+</div>

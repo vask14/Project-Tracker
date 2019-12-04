@@ -1,0 +1,65 @@
+<div class="employees-admin-page row">
+  <div class="col-md-10 offset-md-1">
+    <div class="row">
+      <div class="col-md-4">
+        <input placeholder="Search Employee" type="text" class="form-control"  [(ngModel)]="searchString"/>
+      </div>
+      <div class="col-md-3 offset-md-5"> 
+          <button type="button" class="btn btn-primary justify-content-end" (click)="openFormModal()" name="button">Add employee</button>
+      </div>
+    </div>
+    <table class="employees-container table">
+      <tr>
+        <th class="thead1"><span class="text-primary">Name</span></th>
+        <th class="thead2"><span class="text-primary">Email</span></th>
+        <th class="thead3"><span class="text-primary">Skype</span></th>
+        <th class="thead4"><span class="text-primary">Phone</span></th>
+        <th class="thead5"></th>
+        <th></th>
+      </tr>
+      <tr class="employee-row" *ngFor="let employee of employees | filter : 'FullName' : searchString; index as i;">
+        <td>
+          <a *ngIf="enableEditIndex != i"  routerLink="/employee/{{employee.Id}}">{{ employee.First}} {{ employee.Last }}</a>
+          <input type="text" [(ngModel)]="editedEmployee.First" *ngIf="enableEdit && enableEditIndex == i"/>
+          <input type="text" [(ngModel)]="editedEmployee.Last" *ngIf="enableEdit && enableEditIndex == i"/>
+        </td>
+        <td>
+          <span *ngIf="enableEditIndex != i">
+            {{ employee.Email }}
+          </span>
+          <input type="text" [(ngModel)]="editedEmployee.Email" *ngIf="enableEdit && enableEditIndex == i"/>
+        </td>
+        <td>
+          <span *ngIf="enableEditIndex != i">
+              {{ employee.Skype }}
+          </span>
+          <input type="text" [(ngModel)]="editedEmployee.Skype" *ngIf="enableEdit && enableEditIndex == i"/>
+        </td>
+        <td>
+          <span *ngIf="enableEditIndex != i">
+              {{ employee.Phone }}
+          </span>
+          <input type="text" [(ngModel)]="editedEmployee.Phone" *ngIf="enableEdit && enableEditIndex == i"/>
+        </td>
+        <td>
+          <div *ngIf="enableEdit && enableEditIndex == i" class="edit-buttons">
+            <button type="button" (click)="enableEdit=false; cancelEdit()" class="btn page-secondary-action-btn">
+                Cancel
+            </button>
+            <button  class="btn page-primary-action-btn" (click)="saveSagment(employee.Id)" type="submit">
+                 Save
+            </button>
+          </div>
+          <div class="remove-btn" *ngIf="i != enableEditIndex || enableEditIndex == null">
+            <button type="button" class="btn btn-default button" (click)="enableEditMethod(i, employee.Id)">
+                <span class="fa fa-pencil"></span>
+            </button>
+            <button type="button" class="btn btn-default button" (click)="deleteUser(employee)">
+                <span class="fa fa-remove"></span>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

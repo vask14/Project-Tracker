@@ -1,0 +1,36 @@
+<div *ngFor="let skill of skills; index as el">
+    <span *ngIf="enableEditIndex != el">
+        {{ skill.Name }}
+    </span>
+    <select *ngIf="enableEdit && enableEditIndex == el" [(ngModel)]="skill.Name">
+        <option *ngFor="let key of ObjectValues(staticData.skillName)" [ngValue]="key">{{ key }}</option>
+    </select>
+    <span *ngIf="enableEditIndex != el">
+        {{ skill.LevelName }}
+    </span>
+    <select [(ngModel)]="skill.LevelName" *ngIf="enableEdit && enableEditIndex == el">
+        <option *ngFor="let key of ObjectValues(staticData.Level)" [ngValue]="key">{{ key }}</option>
+    </select>
+    <button (click)="enableEditMethod(el, skill)" *ngIf="el != enableEditIndex || enableEditIndex == null">Edit</button>
+    <button *ngIf="enableEdit && enableEditIndex == el" class="btn page-primary-action-btn" (click)="saveSagment(skill)" type="submit">
+        Save
+    </button>
+    <button *ngIf="enableEdit && enableEditIndex == el" class="btn page-primary-action-btn" (click)="deleteSkill(skill.Id)">
+        Delete
+    </button>
+    <button *ngIf="enableEdit && enableEditIndex == el" class="btn page-primary-action-btn" (click)="cancelEdit()">
+        Cancel
+    </button>
+</div>
+<div *ngIf="addingSkill">
+    <select [(ngModel)]="selected">
+        <option *ngFor="let key of newSelectSkills" [ngValue]="key">{{ key.Name }}</option>
+    </select>
+    <select [(ngModel)]="newSelectLevel">
+        <option *ngFor="let key of ObjectKeys(staticData.Level)" [ngValue]="key">{{ staticData.Level[key] }}</option>
+    </select>
+    <button (click)="newSave(selected, newSelectLevel)">Submit</button>
+</div>
+<button (click)="toggleAddingSkill()" *ngIf="skills?.length">
+    {{ addingSkill ? 'Cancel' : 'Add Skill'}}
+</button>

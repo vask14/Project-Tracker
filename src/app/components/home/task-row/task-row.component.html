@@ -1,0 +1,3 @@
+<div *ngFor="let date of row" style="margin-left: 200px;">
+    <app-task-cell [loggedTime]="date.LoggedTime" [comment]="date.Comment" [id]='date.Id' [date]="date.Date" [ticket]="taskId"></app-task-cell>
+</div>

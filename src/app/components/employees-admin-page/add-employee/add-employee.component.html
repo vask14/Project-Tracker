@@ -1,0 +1,85 @@
+<div class="modal-header">
+    <h4 class="modal-title">Add new employee</h4>
+    <button type="button" class="close" aria-label="Close"
+     (click)="activeModal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<form [formGroup]="myForm" (ngSubmit)="submitForm()">
+    <div class="modal-body">
+      <div class="container">
+        <div class="form-group">
+          <label for="username">First Name</label>
+          <input type="text" 
+            class="form-control"
+            formControlName="First" />
+        </div>
+        <div class="form-group">
+            <label for="username">Last Name</label>
+            <input type="text" 
+              class="form-control"
+              formControlName="Last" />
+        </div>
+        <div class="form-group">
+            <label for="username">Email</label>
+            <input type="text" 
+                class="form-control"
+                formControlName="Email" />
+        </div>
+        <div class="form-group">
+            <label for="username">Location</label>
+            <select class="form-control" formControlName="LocationId">
+                <option *ngFor="let key of ObjectKeys(staticData.Location)" [ngValue]="key">{{ staticData.Location[key] }}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="username">Birthday</label>
+            <form class="form-inline">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <input class="form-control" placeholder="yyyy-mm-dd"
+                               name="d2" #c2="ngModel" [ngModelOptions]="{standalone: true}" [(ngModel)]="Birthday" ngbDatepicker #d2="ngbDatepicker">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"></button>
+                        </div>
+                      </div>
+                    </div>
+            </form>
+        </div>
+        <div class="form-group">
+        <label for="username">Address</label>
+        <input type="text" 
+            class="form-control"
+            formControlName="Address" />
+        </div>
+        <div class="form-group">
+        <label for="username">Skype</label>
+        <input type="text" 
+            class="form-control"
+            formControlName="Skype" />
+        </div>
+        <div class="form-group">
+            <label for="username">Phone</label>
+            <input type="text" 
+                class="form-control"
+                formControlName="Phone" />
+        </div>
+        <div class="form-group">
+            <label for="username">Position</label>
+            <select class="form-control" formControlName="PositionId">
+                <option *ngFor="let key of ObjectKeys(staticData.projectPosition)" [ngValue]="key">{{ staticData.projectPosition[key] }}</option>
+            </select>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" formControlName="Password">
+        </div>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-success"
+      [disabled]="!myForm.valid">
+      Submit
+    </button>
+  </div>
+</form>

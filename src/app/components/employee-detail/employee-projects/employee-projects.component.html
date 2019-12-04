@@ -1,0 +1,16 @@
+<div class="row projects">
+        <div class="col-md-12 head row">
+            <div class="col-md-2">
+                <h2>Projects</h2>
+            </div>
+        </div>
+    
+        <table class="tasks-container table">
+            <tr class="employee-row" *ngFor="let project of projects">
+                <td>
+                    <a routerLink="/project/{{project.Id}}">{{ project.Name }}</a>
+                </td>
+                <app-employee-tasks [projectId]="project.Id" [employeeId]="employeeId"></app-employee-tasks>
+            </tr>
+        </table>
+</div>

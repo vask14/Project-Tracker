@@ -1,0 +1,5 @@
+<div *ngFor="let task of tasks" class="row tasks">
+    <a class="col-md-2 task" routerLink="/task/{{task.Id}}">{{ task.Name }}</a>
+    <span class="col-md-3">{{ task.Description }}</span>
+</div>
+      

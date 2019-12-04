@@ -1,0 +1,25 @@
+<h1 *ngIf="project" class="text-center">{{ project.Name }}</h1>
+<div *ngIf="project" class="row">
+    <div class="col-md-1 offset-md-2">
+        <img src="assets/images/project.png" alt="project">
+        <button class="btn btn-primary btn-dashboard" routerLink="/dashboard/{{project.Id}}">Dashboard</button>
+    </div>
+    <div class="col-md-3 offset-md-1">
+        <div>
+            <strong>Customer: </strong>
+            {{ project.CustomerName }}
+        </div>
+        <div>
+            <strong>Start Date: </strong>
+            {{ project.StartDate | date: 'longDate' }}
+        </div>
+        <div>
+            <strong>End Date: </strong>
+            {{ project.EndDate | date: 'longDate' }}
+        </div>
+        <div>
+            <strong>Description:</strong>
+        </div>
+        <p>{{ project.Description }}</p>
+    </div>
+</div>

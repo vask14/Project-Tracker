@@ -1,0 +1,93 @@
+<div class="modal-header">
+        <h4 class="modal-title">Add new task</h4>
+        <button type="button" class="close" aria-label="Close"
+            (click)="activeModal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+    <form [formGroup]="myForm" (ngSubmit)="task ? submitForm() : submitOnDashboard()">
+    <div class="modal-body">
+        <div class="container">
+            <div class="form-group">
+                <label for="username">Name</label>
+                    <input type="text" 
+                    class="form-control"
+                    formControlName="Name" />
+            </div>
+        </div>
+        <div class="container">
+            <div class="form-group">
+                <label for="username">Type</label>
+                <select class="form-control" formControlName="TypeId">
+                    <option *ngFor="let key of ObjectKeys(staticData.ticketType)" [ngValue]="key">{{ staticData.ticketType[key] }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="container">
+            <div class="form-group">
+                <label for="username">Status</label>
+                <select class="form-control" formControlName="StatusId">
+                    <option *ngFor="let key of ObjectKeys(staticData.ticketStatus)" [ngValue]="key">{{ staticData.ticketStatus[key] }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="username">Estimate</label>
+            <input type="text" 
+                class="form-control"
+                formControlName="Estimate" />
+        </div>
+        <div class="form-group">
+            <label for="username">StartDate</label>
+            <form class="form-inline">
+                <div class="form-group">
+                    <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd"
+                            name="d2" #c2="ngModel" [ngModelOptions]="{standalone: true}" [(ngModel)]="StartDay" ngbDatepicker #d1="ngbDatepicker">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button"></button>
+                    </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="form-group">
+            <label for="username">EndDate</label>
+            <form class="form-inline">
+                <div class="form-group">
+                    <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd"
+                            name="d2" #c2="ngModel" [ngModelOptions]="{standalone: true}" [(ngModel)]="EndDate" ngbDatepicker #d2="ngbDatepicker">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"></button>
+                    </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="form-group">
+            <label for="username">Description</label>
+            <input type="text" 
+                class="form-control"
+                formControlName="Description" />
+        </div>
+        <div class="form-group">
+            <label for="username">Reporter</label>
+            <select class="form-control" formControlName="ReporterId">
+                <option *ngFor="let employee of employees" [ngValue]="employee.Id">{{ employee.FullName }}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="username">Responsible</label>
+            <select class="form-control" formControlName="ResponsibleId">
+                <option *ngFor="let employee of employees" [ngValue]="employee.Id">{{ employee.FullName }}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success"
+        [disabled]="!myForm.valid">
+            Add 
+        </button>
+    </div>
+</form>

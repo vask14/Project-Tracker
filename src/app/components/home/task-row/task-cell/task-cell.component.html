@@ -1,0 +1,4 @@
+<div style="display:flex; flex-direction:row">
+    <input [(ngModel)]="loggedTime" style="max-width: 30px;"/>
+    <app-add-hours [loggedTime]='loggedTime' [comment]="comment" [id]="id" [date]="date" [ticket]="ticket"></app-add-hours>
+</div>

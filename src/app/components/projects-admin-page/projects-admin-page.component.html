@@ -1,0 +1,146 @@
+<div class="projects-admin-page row">
+    <div class="col-md-8 offset-md-2">
+        <div class="row">
+            <div class="col-md-4">
+                <input placeholder="Search Project" type="text" class="form-control" [(ngModel)]="searchString"/>
+            </div>
+            <div class="col-md-1 offset-md-7">
+                <button type="button" class="btn btn-primary justify-content-end" name="button" (click)="openFormModal()">Add project</button>
+            </div>
+        </div>
+        <table class="table">
+            <tr>
+                <th class="thead1"><span class="text-primary">Name</span></th>
+                <th class="thead2"><span class="text-primary">Customer</span></th>
+                <th class="thead3"><span class="text-primary">StartDate</span></th>
+                <th class="thead4"><span class="text-primary">Description</span></th>
+                <th class="thead5"></th>
+            </tr>
+            <tr class="project-row" *ngFor="let project of projects | filter : 'Name' : searchString; index as i;">
+                <td>
+                    <a *ngIf="enableEditIndex != i" routerLink="/project/{{project.Id}}">
+                        {{ project.Name }}
+                    </a>
+                    <input type="text" [(ngModel)]="editedProject.Name" *ngIf="enableEdit && enableEditIndex == i"/>
+                </td>
+                <td>
+                    <span *ngIf="enableEditIndex != i">
+                        {{ project.CustomerName }} 
+                    </span>
+                    <input type="text" [(ngModel)]="editedProject.CustomerName" *ngIf="enableEdit && enableEditIndex == i"/>
+                </td>
+                <td>
+                    <span *ngIf="enableEditIndex != i">
+                        {{ project.StartDate | date: 'longDate' }} 
+                    </span>
+                    <form class="form-inline"  *ngIf="enableEdit && enableEditIndex == i">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input class="form-control" placeholder="yyyy-mm-dd"
+                                        name="dp" [(ngModel)]="editedProject.StartDate" ngbDatepicker #d="ngbDatepicker">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </td>
+                <td>
+                    <span *ngIf="enableEditIndex != i">
+                        {{ project.Description }} 
+                    </span>
+                    <input type="text" [(ngModel)]="editedProject.Description" *ngIf="enableEdit && enableEditIndex == i"/>
+                </td>
+                <td>
+                    <div *ngIf="enableEdit && enableEditIndex == i" class="edit-buttons">
+                        <button type="button" (click)="enableEdit=false; cancelEdit()" class="btn page-secondary-action-btn">
+                            Cancel
+                        </button>
+                        <button  class="btn page-primary-action-btn" (click)="saveSagment(project.Id)" type="submit">
+                             Save
+                        </button>
+                    </div>
+                    <div class="remove-btn" *ngIf="i != enableEditIndex || enableEditIndex == null">
+                        <button type="button" class="btn btn-default button" (click)="enableEditMethod(i, project.Id)">
+                            <span class="fa fa-pencil"></span>
+                        </button>
+                        <button type="button" class="btn btn-default button" (click)="deleteProject(project)">
+                            <span class="fa fa-remove"></span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!-- <div class="col-md-4">
+    <input placeholder="Filter" type="text" class="form-control" [(ngModel)]="searchString"/>
+</div>
+<div class="col-md-3 col-md-offset-5">
+    <button type="button" class="btn btn-primary pull-right" name="button" (click)="openFormModal()">Add project</button>
+</div>
+<table class="employees-container table table-striped">
+    <tr>
+        <th class="thead1"><span class="text-primary">Name</span></th>
+        <th class="thead2"><span class="text-primary">Customer</span></th>
+        <th class="thead3"><span class="text-primary">StartDate</span></th>
+        <th class="thead4"><span class="text-primary">Description</span></th>
+        <th class="thead5"></th>
+        <th></th>
+    </tr>
+
+    <tr class="employee-row" *ngFor="let project of projects | filter : 'Name' : searchString; index as i;">
+        <td>
+            <a *ngIf="enableEditIndex != i" routerLink="/project/{{project.Id}}">
+                {{ project.Name }}
+            </a>
+            <input type="text" [(ngModel)]="editedProject.Name" *ngIf="enableEdit && enableEditIndex == i"/>
+        </td>
+        <td>
+            <span *ngIf="enableEditIndex != i">
+                {{ project.CustomerName }} 
+            </span>
+            <input type="text" [(ngModel)]="editedProject.CustomerName" *ngIf="enableEdit && enableEditIndex == i"/>
+        </td>
+        <td>
+            <span *ngIf="enableEditIndex != i">
+                {{ project.StartDate | date: 'longDate' }} 
+            </span>
+            <form class="form-inline"  *ngIf="enableEdit && enableEditIndex == i">
+                <div class="form-group">
+                    <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd"
+                            name="dp" [(ngModel)]="editedProject.StartDate" ngbDatepicker #d="ngbDatepicker">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+                    </div>
+                    </div>
+                </div>
+            </form>
+        </td>
+        <td>
+            <span *ngIf="enableEditIndex != i">
+                {{ project.Description }} 
+            </span>
+            <input type="text" [(ngModel)]="editedProject.Description" *ngIf="enableEdit && enableEditIndex == i"/>
+        </td>
+        <td>
+            <div *ngIf="enableEdit && enableEditIndex == i" class="edit-buttons">
+                <button type="button" (click)="enableEdit=false; cancelEdit()" class="btn page-secondary-action-btn">
+                    Cancel
+                </button>
+                <button  class="btn page-primary-action-btn" (click)="saveSagment(project.Id)" type="submit">
+                    Save
+                </button>
+            </div>
+            <div class="remove-btn" *ngIf="i != enableEditIndex || enableEditIndex == null">
+                <button type="button" class="btn btn-default button" (click)="enableEditMethod(i, project.Id)">
+                    <span class="fa fa-pencil"></span>
+                </button>
+                <button type="button" class="btn btn-default button" (click)="deleteProject(project)">
+                    <span class="fa fa-remove"></span>
+                </button>
+            </div>
+        </td>
+    </tr>
+</table> -->

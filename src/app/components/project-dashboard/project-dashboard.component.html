@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row header">
+        <h1 class="text-center col-md-5 offset-md-1" *ngIf="project">{{ project.Name }}</h1>
+        <button type="submit" class="btn btn-primary col-md-2 offset-md-1" (click)="openFormModal()">
+            New ticket
+        </button>
+    </div>
+    <div class="row">      
+        <div class="task-container" *ngFor="let task of tasks">
+            <div class="drag-container">
+                <div class="section-heading">{{task.title}}</div>
+                    
+                <div cdkDropList id="{{task.name}}" [cdkDropListData]="task.tasks"
+                [cdkDropListConnectedTo]="getTaskIds" class="task-list" (cdkDropListDropped)="drop($event, task)">
+                <div class="task-box" *ngFor="let task of task.tasks" cdkDrag>
+                    <div>
+                        {{ task.Name }}
+                    </div>
+                    <div>
+                        {{ task.Description }}
+                    </div>
+                </div>
+                </div>
+             </div>
+        </div>
+    </div> 
+</div>

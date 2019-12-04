@@ -1,0 +1,124 @@
+<div class="container" *ngIf="task">
+    <div class="task-page row">
+        <div class="col-md-6 offset-md-3">
+            <h1 class="text-center">Task {{ task.Name }}</h1>
+            <div *ngIf="!editing" class="task-info row">
+                <div class="task-info-left col-md-6">
+                    <div>
+                        <strong>Project: </strong>
+                        <a routerLink="/project/{{project.Id}}" *ngIf="project">{{ project.Name }}</a>
+                    </div>
+                    <div>
+                        <strong>Status: </strong>
+                        {{ SelectedTicketStatus.Name }}
+                    </div>
+                    <div>
+                        <strong>Type: </strong>
+                        {{ SelectedTicketType.Name }}
+                    </div>
+                    <div>
+                        <strong>Estimate: </strong>
+                        {{ task.Estimate }}
+                    </div>
+                    <div>
+                        <strong>Start Date: </strong>
+                        {{ task.StartDate | date: 'longDate' }}
+                    </div>
+                    <div>
+                        <strong>End Date: </strong>
+                        {{ task.EndDate | date: 'longDate' }}
+                    </div>
+                    <div>
+                        <strong>Description: </strong>
+                        {{ task.Description }}
+                    </div>
+                    <button type="button" class="btn btn-primary" (click)="openFormModal()" name="button">New</button>
+                    <button type="button" class="btn btn-success" (click)="toggleEdit()" name="button">Edit</button>
+                    <button type="button" class="btn btn-danger" name="button" (click)="deleteTask(task.Id)">Delete</button>
+                </div>
+                <div class="col-md-6">
+                    <div>
+                        <strong>Reporter: </strong>
+                        {{ SelectedReporter.FullName }}
+                    </div>
+                    <div>
+                        <strong>Responsible: </strong>
+                        {{ selectedResponsible.FullName }}
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="editing" class="task-info row">
+                <div class="col-md-6">
+                    <div>
+                        <strong>Project: </strong>
+                        <a routerLink="/project/{{project.Id}}" *ngIf="project">{{ project.Name }}</a>
+                    </div>
+                    <div>
+                        <strong>Status: </strong>
+                        <select [(ngModel)]="SelectedTicketStatus" [compareWith]="compareFn">
+                            <option *ngFor="let status of TicketStatus" [ngValue]="status">{{ status.Name }}</option>
+                        </select>
+                    </div>
+                    <div>
+                        <strong>Type: </strong>
+                        <select [(ngModel)]="SelectedTicketType" [compareWith]="compareFn">
+                            <option *ngFor="let type of TicketTypes" [ngValue]="type">{{ type.Name }}</option>
+                        </select>
+                    </div>
+                    <div>
+                        <strong>Estimate: </strong>
+                        <input type="text" [(ngModel)]="task.Estimate"/>
+                    </div>
+                    <div>
+                        <strong>Start Date: </strong>
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input class="form-control" [placeholder]="task.StartDate | date"
+                                            name="dp" [(ngModel)]="task.StartDate" ngbDatepicker #d1="ngbDatepicker">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div>
+                        <strong>End Date: </strong>
+                        <form class="form-inline">
+                            <div class="form-group">
+                                    <div class="input-group">
+                                    <input class="form-control" [placeholder]="task.EndDate | date"
+                                            name="dp" [(ngModel)]="task.EndDate" ngbDatepicker #d2="ngbDatepicker">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div>
+                        <strong>Description: </strong>
+                        <input type="text" [(ngModel)]="task.Description"/>
+                    </div>
+                    <button type="button" class="btn btn-success" *ngIf="editing" (click)="submitEdit(task)" name="button">Submit Edit</button>
+                    <button type="button" class="btn btn-danger" *ngIf="editing" (click)="cancelEdit()" name="button">Cancel Edit</button>
+                </div>
+                <div class="col-md-6">
+                    <div>
+                        <strong>Reporter: </strong>
+                        <select [(ngModel)]="SelectedReporter" [compareWith]="compareFn">
+                            <option *ngFor="let employee of employees" [ngValue]="employee">{{ employee.FullName }}</option>
+                        </select>
+                    </div>
+                    <div>
+                        <strong>Responsible: </strong>
+                        <select [(ngModel)]="selectedResponsible" [compareWith]="compareFn">
+                            <option *ngFor="let employee of employees" [ngValue]="employee">{{ employee.FullName }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

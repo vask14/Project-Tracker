@@ -1,0 +1,12 @@
+<div class="container" *ngIf="employee">
+    <h1 class="text-center">{{ employee.FullName }}</h1>
+    <div class="row">
+        <div class="col-md-8">
+            <app-employee-info [employee]="employee"></app-employee-info>
+        </div>
+        <div class="col-md-4">
+            <app-employee-skills [employeeId]="employeeId"></app-employee-skills>
+        </div>
+    </div>
+    <app-employee-projects [employeeId]="employeeId"></app-employee-projects>
+</div>
